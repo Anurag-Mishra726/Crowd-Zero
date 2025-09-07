@@ -1,0 +1,259 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffa742;
+  padding: 1em 2em;
+}
+
+.logo-container {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #000000;
+  font-family: "Playfair Display";
+  font-size: 0.8em;
+  text-decoration: underline white 2px;
+  text-underline-offset: 4px;
+  vertical-align: super;
+  vertical-align: super;
+  font-weight: normal;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 5.5em;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1.2em;
+}
+
+.navbar ul li a i {
+  font-size: 0.8em;
+}
+
+/* Navbar link hover effect */
+.navbar ul li a {
+  position: relative;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: white; /* text changes to white */
+}
+
+/* underline effect on hover */
+.navbar ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.navbar ul li a:hover::after {
+  width: 100%;
+}
+
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  margin-top: 0.5em;
+  border-radius: 20px;
+  background-color: #ffa742;
+  z-index: 1000;
+  transform: translateX(-1.5em);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4), -5px -5px 10px rgba(0, 0, 0, 0.4),
+    -15px 15px 10px rgba(0, 0, 0, 0.4), 15px 15px 10px rgba(0, 0, 0, 0.4);
+}
+
+li .dropdown-content ul {
+  list-style: none;
+  padding: 0.8em 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+li .dropdown-content ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+
+.search-cart , .product-search{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.search-cart > .product-search > input {
+  border: none;
+  border: 2px solid black;
+  border-radius: 25px;
+  padding: 0.6em 2.5em 0.6em 0.8em;
+  font-size: 1em;
+}
+
+.search-cart > .product-search > .search-btn{
+  border: none;
+  background: transparent;
+  position: absolute;
+  right: 10px;
+  font-size: 1.3em;
+  color: black;
+  cursor: pointer;
+}
+
+.search-dropdown {
+  display: none; 
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: 50%;
+  background-color: #333; 
+  border-radius: 6px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.search-dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  color: black;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.search-dropdown-item:hover {
+  background-color: #333; /* navbar bg */
+  color: white;
+}
+
+/* Scrollbar styling for long list */
+.search-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 4px;
+}
+.search-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.cart a,
+.user a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.2em;
+  margin-left: 1em;
+  cursor: pointer;
+}
+
+.cart > a,
+.user > a {
+  text-decoration: none;
+  color: black;
+}
+
+.user i {
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.cart i{
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.cart a {
+  position: relative;
+  color: black;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.cart a:hover {
+  color: rgb(255, 255, 255);
+}
+
+.cart a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: rgb(255, 255, 255);
+  transition: width 0.3s ease;
+}
+
+.cart a:hover::after {
+  width: 100%;
+}
+
+/* ---------- Profile hover effect ---------- */
+.user a {
+  position: relative;
+  color: black;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.user a:hover {
+  color: rgb(255, 255, 255);
+}
+
+.user a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: rgb(255, 255, 255);
+  transition: width 0.3s ease;
+}
+
+.user a:hover::after {
+  width: 100%;
+}

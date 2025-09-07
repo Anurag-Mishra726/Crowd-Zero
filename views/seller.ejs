@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Become a Seller</title>
+  <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/newsletter.css">
+  <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: #ffffff;
+      color: #222;
+    }
+
+    main {
+      display: block;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      /* background: linear-gradient(135deg, #ffa533, #ff7f00); */
+      color: rgb(0, 0, 0);
+      border-bottom: 5px solid #ffa600;
+      border-radius: 20px;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+    }
+    .btn {
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ffa533;
+      color: white;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      background: #ff8c1a;
+    }
+
+    /* Benefits */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+      background: white;
+    }
+    .benefit {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background: #e6e6e681;
+      transition: transform 0.2s ease;
+    }
+    .benefit:hover {
+      transform: translateY(-5px);
+    }
+    .benefit h3 {
+      margin-bottom: 10px;
+      color: #000000;
+    }
+
+    /* Steps */
+    .steps {
+      padding: 40px 20px;
+      background: #ffffff;
+      text-align: center;
+    }
+    .steps h2 {
+      margin-bottom: 25px;
+      font-size: 2rem;
+      color: #222;
+    }
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .step {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 5px solid #ffa533;
+      text-align: left;
+    }
+    .step strong {
+      color: #ffa533;
+    }
+
+    /* CTA Section */
+    .cta {
+        border-top: 5px solid #ffa600;
+      text-align: center;
+      padding: 50px 20px;
+      background: #ffffff;
+      color: rgb(0, 0, 0);
+    }
+    .cta h2 {
+      margin-bottom: 20px;
+    }
+    .cta .btn {
+      background: #ffa533;
+      color: #ffffff;
+    }
+
+    /* Popup Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup-content {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 350px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .popup-content h3 {
+      margin-bottom: 15px;
+      color: #ffa533;
+    }
+    .popup-content button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #ffa533;
+      color: white;
+      cursor: pointer;
+    }
+    .popup-content button:hover {
+      background: #ff8c1a;
+    }
+  </style>
+</head>
+<body>
+  <%- include("partials/loader") %>
+    <%- include('partials/navbar') %>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Start Selling on YourStore</h1>
+      <p>Join thousands of sellers and grow your business online.</p>
+      <button class="btn show-popup">Register as a Seller</button>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits">
+      <div class="benefit">
+        <h3>🛍️ More Customers</h3>
+        <p>Expand your reach and grow your sales online.</p>
+      </div>
+      <div class="benefit">
+        <h3>⚡ Fast Payments</h3>
+        <p>Receive your payments quickly and securely.</p>
+      </div>
+      <div class="benefit">
+        <h3>📦 Easy Management</h3>
+        <p>Manage orders and products with our seller dashboard.</p>
+      </div>
+      <div class="benefit">
+        <h3>📊 Insights</h3>
+        <p>Track performance with real-time sales reports.</p>
+      </div>
+    </section>
+
+    <!-- Steps -->
+    <section class="steps">
+      <h2>How It Works</h2>
+      <div class="step-list">
+        <div class="step"><strong>1.</strong> Register as a seller</div>
+        <div class="step"><strong>2.</strong> Upload your products</div>
+        <div class="step"><strong>3.</strong> Start selling & shipping</div>
+        <div class="step"><strong>4.</strong> Get paid securely</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Ready to Start Selling?</h2>
+      <button class="btn show-popup">Become a Seller Today</button>
+    </section>
+  </main>
+
+  
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>🚧 Coming Soon!</h3>
+      <p>This feature is being prepared. Stay tuned!</p>
+      <button onclick="closePopup()">OK</button>
+    </div>
+  </div>
+  <%- include('partials/newsletter') %>
+  <%- include('partials/footer') %>
+  <script src="js/navbar.js"></script>
+  <script src="js/newsletter.js"></script>
+  <script>
+    const popup = document.getElementById('popup');
+    const showBtns = document.querySelectorAll('.show-popup');
+
+    showBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        popup.style.display = 'flex';
+      });
+    });
+
+    function closePopup() {
+      popup.style.display = 'none';
+    }
+
+    // Close popup if user clicks outside the box
+    window.addEventListener('click', (e) => {
+      if (e.target === popup) {
+        popup.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Products</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/newsletter.css">
+    <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include("partials/loader") %>
+    <div id="warning-box" class="warning-container" style="display: none;">
+        <div class="warning-message">⚠️ Something went wrong</div>
+        <div class="warning-close" onclick="closeWarning()">✖</div>
+    </div>
+    <%- include('partials/navbar') %>
+    <div class="container"> 
+        <aside class="sidebar">
+            
+            <div class="category-list">
+                <h3><a href="/products" class="all-category">All Categories</a></h3>
+                <% categoriesName.forEach(items => { %>
+                    <div class="category-item"><a href="products?categoryId=<%- items.category_id %>" class="category-link" data-category_id = "<%- items.category_id %>"><%- items.category_name %></a></div>
+                <%})%>
+            </div>
+ 
+            
+            <div class="brand-list">
+                <h3>Top <br> <span>Brands</span></h3>
+              <img src="images/shop/brands-name/Puma_(brand)-Logo.wine.png" alt="Puma" />
+              <img src="images/shop/brands-name/Panasonic_(brand)-Logo.wine.png" alt="Panasonic" />
+              <img src="images/shop/brands-name/Nike,_Inc.-Logo.wine.png" alt="Nike" />
+              <img src="images/shop/brands-name/H&M-Logo.wine.png" alt="H&M" />
+              <img src="images/shop/brands-name/Asus-Logo.wine.png" alt="ASUS" />
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <h2>Our Collection Of Products</h2>
+            <div class="search-bar">
+                <input type="text" placeholder="Search an item..." />
+                <div class="search-dropdown"></div>
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <p class="small-info">Showing 1-12 of 24 items</p>
+            <div class="product-grid">               
+                <div class="product-card">
+                    <a href="#"><div class="product-image"><img src="images/shop/product_items/product-tishirt.webp" alt=""></div></a>
+                    <div class="price">₹1,600 <span><i class="fa-solid fa-circle-plus" style="color: #000000;"></i></span></div>
+                    <div class="desc">Lorem ipsum lorem ipsum lorem ipsum</div>
+                </div>
+            </div>
+                <div class="pagination-info">Showing 1-12 of 34 item(s)</div>
+                <div class="load-more">
+                    <button id="prev-btn">❮ Prev</button>
+                    <button id="next-btn">Next ❯</button>
+                </div>
+        </main>
+    </div>
+    <%- include('partials/newsletter') %>
+    <%- include('partials/footer') %>
+    <script src="js/navbar.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/newsletter.js"></script>
+</body>
+</html> 

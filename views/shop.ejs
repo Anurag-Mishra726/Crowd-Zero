@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/shop.css"/>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/newsletter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+ </head>
+  <body>
+    <%- include("partials/loader") %>
+    <%- include('partials/navbar') %> 
+    <section class="hero slider">
+        <div class="slider-wrapper" id="sliderWrapper">
+            <img src="images/shop/hero/hero_bg_1.jpg" alt="Shop Tshirt">
+            <img src="images/shop/hero/hero_bg_2.jpg" alt="Smart Phone">
+            <img src="images/shop/hero/hero_bg_3.jpg" alt="Home Sale">
+        </div>
+    </section>
+    <section class="product-categories">
+        <div class="product-card-container">
+            <% for(let i = 0; i <= 3; i++) {%>
+            <div class="comman-card">
+                <div class="container-sub-card">
+                    <div class="sub-card-1 sub-comman-card">
+                        <a href="/products?categoryId=<%- thumbnails[i*4].category_id %>"><img src="<%- thumbnails[i*4].thumbnail %>" alt="<%- thumbnails[i*4].title %>" data-product_id = "<%- thumbnails[i*4].product_id %>" data-category_id = "<%- thumbnails[i*4].category_id %>"></a>
+                        <p><%-  categories[i*4] %> </p>
+                    </div>
+                    <div class="sub-comman-card">
+                        <a href="/products?categoryId=<%- thumbnails[(i*4)+1].category_id %>"><img src="<%- thumbnails[(i*4)+1].thumbnail %>" alt="<%- thumbnails[(i*4)+1].title %>" data-product_id = "<%- thumbnails[(i*4)+1].product_id %>" data-category_id = "<%- thumbnails[(i*4)+1].category_id %>"></a>
+                        <p><%-  categories[(i*4)+1] %> </p>
+                    </div>
+                    <div class="sub-comman-card">
+                        <a href="/products?categoryId=<%- thumbnails[(i*4)+2].category_id %>"><img src="<%- thumbnails[(i*4)+2].thumbnail %>" alt="<%- thumbnails[(i*4)+2].title %>" data-product_id = "<%- thumbnails[(i*4)+2].product_id %>" data-category_id = "<%- thumbnails[(i*4)+2].category_id %>"></a>
+                        <p><%-  categories[(i*4)+2] %> </p>
+                    </div>
+                    <div class="sub-comman-card" >
+                        <a href="/products?categoryId=<%- thumbnails[(i*4)+3].category_id %>"><img src="<%- thumbnails[(i*4)+3].thumbnail %>" alt="<%- thumbnails[(i*4)+3].title %>" data-product_id = "<%- thumbnails[(i*4)+3].product_id %>" data-category_id = "<%- thumbnails[(i*4)+3].category_id %>"></a>
+                        <p><%-  categories[(i*4)+3] %> </p>
+                    </div>
+                </div>
+            </div>
+             <% } %>
+        </div>
+
+    </section>
+
+    <section class="adds">
+        <div class="adds-heading">
+          <h1>View Our Range Of Categories</h1>
+          <p>Discover a diverse and curated selection of products to fit every style, from top brands to the most popular items.</p>
+        </div>
+      
+        <div class="adds-banner">
+          <div class="banner-1">
+            <img src="images/shop/adds-banner/banner-1.webp" alt="">
+          </div>
+      
+          <div class="banner-2">
+            <div class="banner-2-1">
+              <img src="images/shop/adds-banner/banner-2-1.webp" alt="">
+            </div>
+            <div class="banner-2-2">
+              <img src="images/shop/adds-banner/banner-2-2.webp" alt="">
+            </div>
+          </div>
+      
+          <div class="banner-3">
+            <img src="images/shop/adds-banner/banner-3.jpg" alt="">
+          </div>
+        </div>
+      </section>
+      
+      <section class="popular-products">
+        <div class="popular-heading">
+            <h1>Most Popluar Products</h1>
+        </div>
+        <div class="popular-items">
+            <% mostPopularProducts.forEach(items => { %>
+                <div class="item">
+                    <div class="item-image">
+                        <a href= "/product-view?categoryId=<%- items.category_id %>&productId=<%- items.product_id %>"><img src="<%- items.thumbnail %>" alt="<%- items.title %>" data-product_id = "<%- items.product_id %>" data-category_id = "<%- items.category_id %>"></a>
+                    </div>
+                    <h3>$<%- items.price %></h3>
+                    <p><%- items.title %></p>
+                </div>
+            <% }) %>
+        </div>
+      </section>
+      <section class="top-brands-section">
+
+        <div class="brand-content">
+            <h2>Top Brands</h2>
+            <div class="brand-grid">
+              <a href="/products"><img src="images/shop/brands-name/nike.png" alt="Nike"></a>
+              <a href="/products"><img src="images/shop/brands-name/puma.png" alt="Puma"></a>
+              <a href="/products"><img src="images/shop/brands-name/apple.png" alt="Apple"></a>
+              <a href="/products"><img src="images/shop/brands-name/asus.png" alt="Asus"></a>
+            </div>
+            <a href="/products" class="view-all-btn">View All</a>
+        </div>
+      
+          <div class="brand-image">
+            <img src="images/shop/brands-name/width_550.png" alt="Model">
+          </div>
+      </section>
+      <section class="about">
+        <div class="about-content">
+            <h1>Learn About US And What Sets Us Apart</h1>
+            <p>At Crowd Zero, our mission is to redefine your shopping experience. We believe in providing a platform where quality products from top brands are accessible to everyone. Our commitment is to bring you everything you love, all in one convenient place</p>
+            <a href="#" class="about-btn">About Us <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="about-images-grid">
+            <div class="about-image-item about-image-1"></div>
+            <div class="about-image-item about-image-2"></div>
+            <div class="about-image-item about-image-3"></div>
+        </div>
+      </section>
+
+    <%- include('partials/newsletter') %>
+    <%- include('partials/footer') %>
+    <script src="js/shop.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/newsletter.js"></script>
+  </body>
+</html>

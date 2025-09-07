@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/newsletter.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include("partials/loader") %>
+     <%- include('partials/navbar')%>
+     <main>
+        <div class="img">
+            <img src="images/logo/contact.webp" alt="">
+        </div>
+        <div class="contact-form">
+            <h1>We'd Love To Hear From You</h1>
+            <form action="" class="form" id="contactForm">
+                <div class="name">
+                    <input class="input" type="text" name="name" id="name" placeholder="Enter Your Name" required>
+                </div>
+                <div class="email">
+                    <input class="input" type="email" name="email" id="email" placeholder="Enter Your Email" required>
+                </div>
+                <div class="message">
+                    <textarea class="textarea" name="message" id="message" placeholder="Your Message" required></textarea>
+                </div>
+                <button class="button" type="button" id="sendButton">Send</button>
+            </form>
+        </div>
+     </main>
+
+     <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modalMessage" class="modal-message"></p>
+            <button id="modalButton" class="modal-button">OK</button>
+        </div>
+    </div>
+
+     <%- include('partials/newsletter') %>
+     <%- include('partials/footer') %>
+
+     <script src="js/navbar.js"></script>
+     <script src="js/newsletter.js"></script>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const sendButton = document.getElementById('sendButton');
+            const statusModal = document.getElementById('statusModal');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalButton = document.getElementById('modalButton');
+            const closeButton = document.querySelector('.close-button');
+
+            function showModal(message) {
+                modalMessage.textContent = message;
+                statusModal.style.display = 'block';
+            }
+
+            function closeModal() {
+                statusModal.style.display = 'none';
+            }
+
+            modalButton.addEventListener('click', closeModal);
+            closeButton.addEventListener('click', closeModal);
+            window.addEventListener('click', (event) => {
+                if (event.target === statusModal) {
+                    closeModal();
+                }
+            });
+
+            sendButton.addEventListener('click', async (event) => {
+                event.preventDefault();
+
+                if (!form.checkValidity()) {
+                    showModal("Please fill in all required fields.");
+                    return;
+                }
+
+                // Get form data
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    // Send data to the backend
+                    const response = await fetch('/contact/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        showModal(result.message);
+                        form.reset(); // Clear the form
+                    } else {
+                        showModal(result.error || "An unexpected error occurred.");
+                    }
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    showModal("Failed to connect to the server. Please try again later.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

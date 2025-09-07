@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/newsletter.css">
+    <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include("partials/loader") %>
+  <% if(!isLoggedIn){ %>
+  <div class="login-message">
+    <h2>🔒 Access Restricted</h2>
+    <p>Please <a href="/login">login in</a> to view your cart.</p>
+  </div>
+  <% } else{  %>
+    <div id="warning-box" class="warning-container" style="display: none;">
+      <div class="warning-message">⚠️ Something went wrong</div>
+      <div class="warning-close" onclick="closeWarning()">✖</div>
+    </div>
+
+  <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="carts">
+        <table>
+            <thead>
+            <tr>
+                <th class="product-col">Product</th>
+                <th class="price-col">Price</th>
+                <th class="qty-col">Quantity</th>
+                <th class="total-col">Total</th>
+                <th class="remove-col">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+              <% if(cartItems.length == 0){ %>
+                <tr>
+                  <td colspan="5" class="cart-empty">
+                    <h3>Your cart is empty <i class="fa-solid fa-cart-plus" style="color: #000000;"></i></h3>
+                    <a href="/products">Start Shopping</a>
+                  </td>
+                </tr>
+              <% } else{ %>
+                <% cartItems.forEach( items => { %>
+                  <tr class="cart-row" data-cart-id="<%- items.cart_id %>">
+                      <td class="product-col">
+                          <div class="product-info">
+                              <img src="<%- items.thumbnail %>" alt="<%- items.title %>">
+                              <span><%- items.title %></span>
+                          </div>
+                      </td>
+                      <td class="price-col"><span class="original-price">$<%= parseFloat(items.price).toLocaleString() %></span> $<%- parseFloat(items.discountedPrice).toLocaleString() %></td>
+                      <td class="qty-col">
+                          <div class="quantity-controls">
+                              <% if( items.quantity == 1) { %>
+                                <button class="btn-dec" disabled data-product-id="<%- items.product_id %>">-</button>
+                              <% } else { %>
+                                <button class="btn-dec" data-product-id="<%- items.product_id %>">-</button>
+                              <% } %>
+                              <input type="text" value="<%- items.quantity %>" class="quantity-input" readonly>
+                              <button class="btn-inc" data-product-id="<%- items.product_id %>">+</button>
+                          </div>
+                      </td>
+                      <td class="total-col">$<%- parseFloat(items.totalPrice).toLocaleString() %></td>
+                      <td class="remove-col" data-product-id="<%- items.product_id %>">
+                          <button class="remove-btn" data-product-id="<%- items.product_id %>"><i class="fa-solid fa-trash" data-product-id="<%- items.product_id %>"></i></button>
+                      </td>
+                  </tr>
+                  <% }) %>
+                  <% } %>
+            </tbody>
+        </table>
+    </div>
+        <% if(cartItems.length > 0){ %>
+          <div class="summary">
+            <div class="summary-header">Total Amount</div>
+            <div class="summary-item">
+                <span>Sub Total</span>
+                <span class="sub-total"> <strong>$<%- parseFloat(subTotal).toLocaleString() %></strong> </span>
+            </div>
+            <div class="summary-item">
+                <span>Discount</span>
+                <span class="discount-percentage"><%- parseFloat((((subTotal - grandTotal) / subTotal) * 100).toFixed(2)).toLocaleString() %>% off</span>
+            </div>
+            <div class="summary-item">
+                <span>Total </span>
+                <span class="grand-total"> <strong>$<%- parseFloat(grandTotal).toLocaleString() %></strong> <strong><small>(INR - <%- parseFloat(grandTotal * 80).toLocaleString('en-IN', {style: 'currency', currency: 'INR', minimumFractionDigits: 2}) %>)</small></strong></span>
+            </div>
+            <button class="checkout">Proceed To Checkout</button>
+          </div>
+        <% } %>
+    </div>
+  
+   <!--  <section class="similar-products-section">
+      <h2 class="section-title">Similar Products</h2>
+      <div class="product-grid">
+          <div class="similar-product-card">
+              <div class="discount-badge">13%</div>
+              <div class="similar-product-image-wrapper">
+                  <img src="https://picsum.photos/id/237/300/300" alt="Similar Product 1" class="similar-product-image">
+              </div>
+              <div class="similar-product-info">
+                  <div class="similar-product-price-icon">
+                      <span class="similar-product-price">₹1,600</span>
+                      <i class="fa-solid fa-circle-plus add-icon"></i>
+                  </div>
+                  <p class="similar-product-text">Lorem ipsum Lorem ipsum</p>
+                  <p class="similar-product-text">Lorem ipsum</p>
+              </div>
+          </div>
+  
+          <div class="similar-product-card">
+              <div class="discount-badge">13%</div>
+              <div class="similar-product-image-wrapper">
+                  <img src="https://picsum.photos/id/238/300/300" alt="Similar Product 2" class="similar-product-image">
+              </div>
+              <div class="similar-product-info">
+                  <div class="similar-product-price-icon">
+                      <span class="similar-product-price">₹1,600</span>
+                      <i class="fa-solid fa-circle-plus add-icon"></i>
+                  </div>
+                  <p class="similar-product-text">Lorem ipsum Lorem ipsum</p>
+                  <p class="similar-product-text">Lorem ipsum</p>
+              </div>
+          </div>
+  
+          <div class="similar-product-card">
+              <div class="discount-badge">13%</div>
+              <div class="similar-product-image-wrapper">
+                  <img src="https://picsum.photos/id/239/300/300" alt="Similar Product 3" class="similar-product-image">
+              </div>
+              <div class="similar-product-info">
+                  <div class="similar-product-price-icon">
+                      <span class="similar-product-price">₹1,600</span>
+                      <i class="fa-solid fa-circle-plus add-icon"></i>
+                  </div>
+                  <p class="similar-product-text">Lorem ipsum Lorem ipsum</p>
+                  <p class="similar-product-text">Lorem ipsum</p>
+                </div>
+            </div>
+  
+          <div class="similar-product-card">
+              <div class="discount-badge">13%</div>
+              <div class="similar-product-image-wrapper">
+                  <img src="https://picsum.photos/id/240/300/300" alt="Similar Product 4" class="similar-product-image">
+              </div>
+              <div class="similar-product-info">
+                  <div class="similar-product-price-icon">
+                      <span class="similar-product-price">₹1,600</span>
+                      <i class="fa-solid fa-circle-plus add-icon"></i>
+                  </div>
+                  <p class="similar-product-text">Lorem ipsum Lorem ipsum</p>
+                  <p class="similar-product-text">Lorem ipsum</p>
+              </div>
+          </div>
+      </div>
+  </section> -->
+  <%- include('partials/newsletter') %>
+  <%- include('partials/footer') %>
+  <script src="js/navbar.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/newsletter.js"></script>
+  <%}%>
+  </body>
+</html>

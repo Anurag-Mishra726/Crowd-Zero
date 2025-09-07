@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - YourStore</title>
+  <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/newsletter.css">
+  <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    main {
+      display: block;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    .faq-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .faq-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #222;
+    }
+    .faq-header p {
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    /* Section titles */
+    .faq-section-title {
+      font-size: 1.8rem;
+      margin: 40px 0 20px 0;
+      color: #222;
+      border-bottom: 2px solid #ffa742;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    /* FAQ Accordion */
+    .faq-item {
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+    }
+    .faq-question {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #222;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.2s;
+    }
+    .faq-question:hover {
+      color: #ffa742;
+    }
+    .faq-answer {
+      display: none;
+      margin-top: 10px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* Expand Arrow */
+    .arrow {
+      transition: transform 0.3s;
+      font-size: 1.2rem;
+      color: #ffa742;
+    }
+    .faq-item.active .arrow {
+      transform: rotate(90deg);
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .faq-question {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include("partials/loader") %>
+    <%- include('partials/navbar') %>
+  <main>
+    <section class="faq-header">
+      <h1>Frequently Asked Questions</h1>
+      <p>Find quick answers for both customers and sellers.</p>
+    </section>
+
+    <!-- Customer FAQs -->
+    <section class="faq-section">
+      <h2 class="faq-section-title">Customer FAQs</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How can I place an order?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            Simply browse products, add them to your cart, and complete the checkout process using any available payment method.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What payment methods are available?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            We support credit/debit cards, UPI, net banking, and Cash on Delivery.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How can I track my order?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            After placing an order, go to your account dashboard and check the "Orders" section to track the status of your shipment.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I return or exchange a product?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            Yes, returns and exchanges are possible within our return policy timeframe. Visit our Returns page for detailed instructions.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seller FAQs -->
+    <section class="faq-section">
+      <h2 class="faq-section-title">Seller FAQs</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I become a seller?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            Register on the seller portal, submit your business details, and start uploading your products to sell online.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is there a fee to join?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            Joining is free, but a small commission is charged per sale. No hidden costs.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I manage my inventory?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            Use our seller dashboard to add, edit, or remove products and monitor stock levels in real-time.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>When do I receive payments?</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="faq-answer">
+            Payments are processed every 5-7 business days directly to your registered bank account.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <%- include('partials/newsletter') %>
+  <%- include('partials/footer') %>
+  <script src="js/navbar.js"></script>
+  <script src="js/newsletter.js"></script>
+  <script>
+    // Accordion toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.querySelector('.faq-question').addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

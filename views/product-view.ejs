@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product View Page</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/product-view.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/newsletter.css">
+    <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include("partials/loader") %>
+    <div id="warning-box" class="warning-container" style="display: none;">
+        <div class="warning-message">⚠️ Something went wrong</div>
+        <div class="warning-close" onclick="closeWarning()">✖</div>
+    </div>
+    <%- include('partials/navbar') %>
+    <main class="product-container">
+        <div class="product-card">
+            <div class="product-images">
+                <div class="main-image-wrapper">
+                    <img src="images/shop/product_items/product-tishirt.webp" alt="Main T-Shirt Image" class="main-image">
+                </div>
+                <div class="thumbnail-images"></div>
+            </div>
+            <div id="zoomResult"></div>
+            <div class="product-details">
+                <div class="product-header">
+                    <h1 class="product-title product_title"></h1>
+                    <!--<span class="heart-icon">&#x2764;</span> -->
+                </div>
+                <div class="product-price-reviews">
+                    <span class="product-price original_price strikethrough">₹1,600</span>
+                    <span class="product-price discount_price"></span>
+                    <span class="star-rating">
+                        &#9733;&#9733;&#9733;&#9733;&#9734;
+                    </span>
+                    <span class="review-count">(32 review)</span>
+                </div>
+
+                <div class="product-short-description">
+                    <p class="product-description">CK One by Calvin Klein is a classic unisex fragrance, known for its fresh and clean scent. It's a versatile fragrance suitable for everyday wear.</p>
+                    <p class="product_brand"> <strong>Brand: </strong>null</p>
+                    <p class="product_category"><strong>Category: </strong> Fashion</p>
+                </div>
+
+                <div class="product-actions">
+                    <div class="quantity-selector">
+                        <button class="quantity-btn btn-dec">-</button>
+                        <input type="text" value="1" class="quantity-input" readonly>
+                        <button class="quantity-btn btn-inc">+</button>
+                    </div>
+                    <button class="add-to-cart-btn">Add To Cart</button>
+                </div>
+                <button class="buy-now-btn">Buy Now</button>
+ 
+                <div class="shipping-info">
+                    <p><span>&#x2713;</span> Free worldwide shipping on all orders over $100</p>
+                    <p><span>&#x2713;</span> Delivers in: 3-7 Working Days <a href="#" class="shipping-link">Shipping & Return</a></p>
+                </div>
+            </div>
+        </div>
+
+        <section class="description-section">
+            <h2 class="section-title">DETAILS</h2>
+            <p><strong>Product name: </strong><span class="product_title"></span></p>
+            <p class="product_brand"></p>
+            <p class="product_category"></p>
+            <p><strong>Discounted Price: </strong><span class="discount_price"></span></p>
+            <p><strong>Original Price: </strong><span class="original_price"></span></p>
+            <p><strong>Discount Percentage: </strong><span class="discount_percentage"></span>% OFF</p>
+            <p><strong>Availability: </strong> <span class="product_availability"></span></p>
+            <p class="product_description"></p>
+            <p><strong>Return Policy: </strong><span class="return_policy"></span></p>            
+        </section>
+
+        <!-- <section class="similar-products-section">
+            <h2 class="section-title">Similar Products</h2>
+            <div class="product-grid">
+                 <div class="similar-product-card">
+                    <div class="discount-badge">13%</div>
+                    <div class="similar-product-image-wrapper">
+                        <img src="images/shop/product_items/product-tishirt.webp" alt="Similar Product 1" class="similar-product-image">
+                    </div>
+                    <div class="similar-product-info">
+                        <div class="similar-product-price-icon">
+                            <span class="similar-product-price">₹1,600</span>
+                            <i class="fa-solid fa-circle-plus add-icon"></i>
+                        </div>
+                        <p class="similar-product-text">Lorem ipsum Lorem ipsum</p>
+                        <p class="similar-product-text">Lorem ipsum</p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+          <section class="reviews-section">
+            <h2 class="section-title">REVIEWS</h2>
+            <div class="review-card-container"></div> 
+            <form action="" id="review-post">
+                <div class="review-form-card">
+                    <div class="form-row">
+                        <% if(userName && userEmail){ %>
+                            <div class="reviewer-avatar-form"><%- userName[0][0] %></div>
+                            <input type="text" value="<%- userName %>" placeholder="Name" name="name" class="form-input" readonly>
+                            <input type="email" value="<%- userEmail %>" placeholder="Email" name="email" class="form-input" readonly>
+                        <% }else{ %>
+                            <div class="reviewer-avatar-form">#</div>
+                            <input type="text" placeholder="Name" name="name" class="form-input" >
+                            <input type="email" placeholder="Email" name="email" class="form-input">
+                        <% } %>   
+                    </div>
+                    <textarea placeholder="Write Your Review..." class="form-textarea"></textarea>
+                    <div class="form-footer">
+                        <span class="form-label">Your Rating</span>
+                        <div class="form-stars">
+                            <span><i class="fa-regular fa-star review-stars" data-reviews="1" style="color: #ffd700;"></i></span>
+                            <span><i class="fa-regular fa-star review-stars" data-reviews="2" style="color: #ffd700;"></i></span>
+                            <span><i class="fa-regular fa-star review-stars" data-reviews="3" style="color: #ffd700;"></i></span>
+                            <span><i class="fa-regular fa-star review-stars" data-reviews="4" style="color: #ffd700;"></i></span>
+                            <span><i class="fa-regular fa-star review-stars" data-reviews="5" style="color: #ffd700;"></i></span>
+                        </div>
+                        <button class="post-review-btn">Post</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+    <%- include('partials/newsletter') %>
+    <%- include('partials/footer') %>
+    <script src="js/navbar.js"></script>
+    <script src="js/product-view.js"></script>
+    <script src="js/newsletter.js"></script>
+</body>
+</html> 

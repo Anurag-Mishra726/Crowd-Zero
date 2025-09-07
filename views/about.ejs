@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/newsletter.css">
+</head>
+<body>
+    <%- include("partials/loader") %>
+    <%- include('partials/navbar') %>
+    <section class="about-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">About Us</p> 
+            <h1 class="hero-title">Discover Who We Are</h1>
+            <p class="hero-description">Your trusted source for Shopping. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+        </div>
+    </section>
+
+    <section class="about-main-content">
+        <div class="content-wrapper">
+            <h2 class="section-heading">Our Story</h2>
+            <p>At the heart of our e-commerce store is a passion for providing quality products and an exceptional shopping experience. We started this journey with a simple goal: to create a destination where you can discover unique items that you'll love, all while enjoying a seamless and secure checkout process. From carefully selecting our products to ensuring every package arrives in perfect condition, we're dedicated to upholding the highest standards of quality. Our mission is to build more than just a store; we want to build a community where every customer feels valued and finds exactly what they're looking for.</p>
+            <h2 class="section-heading">Our Commitment</h2>
+            <p>We believe that great style should be accessible to everyone. That's why we work hard to source products that are not only beautiful but also affordable. Our black, white, and color palette isn't just a design choice—it's a reflection of our brand's values: bold, clean, and vibrant. We are committed to transparency, reliability, and excellent customer service. Your satisfaction is our top priority, and we're always here to help with any questions or concerns you may have. Thank you for choosing to shop with us and for being a part of our journey.</p>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-shopping-bag"></i> </div> 
+                    <div class="feature-text">
+                        <h3>Easy Shopping</h3>
+                        <p>Find what you love with just a few clicks.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-users"></i> </div>
+                    <div class="feature-text">
+                        <h3>Easy Sign Up</h3>
+                        <p>Your journey to great products starts here.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-shield-alt"></i> </div>
+                    <div class="feature-text">
+                        <h3>Trusted Sellers</h3>
+                        <p>Trust & Confidence in every purchase.</p>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <section class="architects-section">
+        <div class="content-wrapper">
+            <div class="architects-header">
+                <i class="fas fa-arrow-up architects-icon"></i>
+                <h2>Architects Of Our <span class="highlight-text">Organization</span></h2>
+                <p>Our organizational architecture is built on a foundation of collaboration and agility. We believe in empowering every team member, fostering an environment where innovation can flourish at every level. This decentralized approach allows us to respond quickly to market changes and customer needs, ensuring we always stay ahead.</p>
+            </div>
+            <div class="architects-grid">
+                <div class="architect-card">
+                    <div class="architect-image-box">
+                        <img src="https://plus.unsplash.com/premium_photo-1661729933751-4f03da73f1fd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Anurag Mishra" class="architect-image">
+                    </div>
+                    <p class="architect-name">Joe Doe</p>
+                    <p class="architect-title">Founder</p>
+                </div>
+                <div class="architect-card">
+                    <div class="architect-image-box">
+                        <img src="https://picsum.photos/id/65/200/200" alt="Anurag Mishra" class="architect-image">
+                    </div>
+                    <p class="architect-name">Amelia.</p>
+                    <p class="architect-title">Co - Founder</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="strengths-section">
+        <div class="strengths-content-wrapper">
+            <div class="strengths-image-box">
+                <img src="https://images.unsplash.com/photo-1584014981626-38adf5fca8ff?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Team Strength" class="strengths-image">
+            </div>
+            <div class="strengths-list-container">
+                <h2>Our Unrivalled <span class="highlight-text-dark">Strengths</span></h2>
+                <div class="strength-item"><span>An agile and highly responsive team.</span></div>
+                <div class="strength-item orange"><span>Innovation is driven by customer needs.</span></div>
+                <div class="strength-item"><span>A strong and collaborative internal culture.</span></div>
+                <div class="strength-item orange"><span>Committed to efficient and excellent operations.</span></div>
+                <div class="strength-item"><span>A proven and trusted track record of success.</span></div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/newsletter') %>
+    <%- include('partials/footer') %>
+    <script src="js/navbar.js"></script>
+    <script src="js/newsletter.js"></script>
+</body>
+</html>

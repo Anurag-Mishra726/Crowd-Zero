@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Account</title>
+<link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/navbar.css">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .delete-account-container {
+    background-color: white;
+    padding: 2.5em 3em;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    max-width: 450px;
+    text-align: center;
+  }
+
+  .delete-account-container h2 {
+    color: #e74c3c;
+    margin-bottom: 1em;
+  }
+
+  .delete-account-container p {
+    color: #333;
+    font-size: 1em;
+    margin-bottom: 2em;
+    line-height: 1.5;
+  }
+
+  .delete-account-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.8em 1.5em;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .delete-account-btn-login , a{
+    background-color: #ff7e22;
+    color: white;
+    padding: 0.8em 1.5em;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .delete-account-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
+
+  .cancel-btn {
+    background-color: #bdc3c7;
+    color: #2c3e50;
+    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin-left: 1em;
+    transition: all 0.3s ease;
+  }
+
+  .cancel-btn:hover {
+    background-color: #95a5a6;
+  }
+
+  .popup {
+    display: none; /* hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .popup-content {
+    background-color: white;
+    padding: 2em 3em;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  }
+
+  .popup-content p {
+    margin-bottom: 1.5em;
+    font-size: 1.1em;
+  }
+
+  #popup-ok-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 0.8em 1.5em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.3s ease;
+  }
+
+  #popup-ok-btn:hover {
+    background-color: #2980b9;
+  }
+</style>
+
+</head>
+<body>
+
+  <%- include("partials/loader") %>
+  <div class="delete-account-container">
+    <% if(isLoggedIn){ %>
+      <h2>⚠️ Delete Account</h2>
+      <p>
+        Are you sure you want to delete your account? <br>
+        This action is <strong>permanent</strong> and cannot be undone.
+      </p>
+      <button class="delete-account-btn" id="delete-btn">Delete Account</button>
+      <button class="cancel-btn" id="cancel-btn">Cancel</button>
+    <% }else{ %>
+        <h2>❌ Not Logged In</h2>
+        <button class="delete-account-btn-login"><a href="/login">Login</a></button>
+    <%}%>
+  </div>
+
+  <div id="popup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p id="popup-message"></p>
+      <button id="popup-ok-btn">OK</button>
+    </div>
+  </div>
+  
+  <script>
+    const deleteBtn = document.getElementById("delete-btn");
+    const cancelBtn = document.getElementById("cancel-btn");
+    const popup = document.getElementById("popup");
+    const popupMessage = document.getElementById("popup-message");
+    const popupOkBtn = document.getElementById("popup-ok-btn");
+    
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", () => {
+        fetch("/delet-account/api/delete", { method: "POST" })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status === "success") {
+              popupMessage.textContent = "✅ Your account has been deleted.";
+            } else {
+              popupMessage.textContent = "❌ Error deleting account. Try again.";
+            }
+            popup.style.display = "flex";
+          })
+          .catch(() => {
+            popupMessage.textContent = "⚠️ Something went wrong.";
+            popup.style.display = "flex";
+          });
+      });
+    }
+    
+    popupOkBtn.addEventListener("click", () => {
+      popup.style.display = "none";
+      window.location.href = "/shop";
+    });
+    
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", () => {
+        window.location.href = "/shop";
+      });
+    }
+    </script>
+  </body>
+</html>

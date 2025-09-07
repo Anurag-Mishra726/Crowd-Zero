@@ -1,0 +1,66 @@
+
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <h2 class="logo">Crowd<span>zero</span></h2>
+            </div>
+            <ul id="main-menu"> 
+                <li class="dropdown">
+                    <a href="javascript:void(0)"  class="glass-card"><i class="fa-solid fa-circle-chevron-down"></i> Menu</a>
+                    <div class="dropdown-content" style="visibility: hidden;">
+                        <ul>
+                            <li><a href="/shop"><i class="fa-solid fa-house"></i> Home</a></li>
+                            <li><a href="/products"><i class="fa-solid fa-list" ></i> All Category</a></li>
+                            <li><a href="/order" class="glass-card"><i class="fa-solid fa-box"></i> Order</a></li>
+                            <li><a href="/about"><i class="fa-solid fa-address-card" ></i> About Us</a></li>
+                            <li><a href="/faq"><i class="fa-solid fa-circle-question" ></i> FAQ</a></li>
+                            <li><a href="/contact"><i class="fa-solid fa-phone" ></i> Contact Us</a></li> 
+                            <li><a href="/seller"><i class="fa-solid fa-shop" ></i> Become a Seller</a></li>
+                            <li><a href="/signup"><i class="fa-solid fa-plus" ></i> Create another account</a></li>
+                            <li><a href="/delet-account"><i class="fa-solid fa-trash" ></i> Delet Account</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="/shop" class="glass-card"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="/products"><i class="fa-solid fa-list"></i> Categories</a></li>
+                <% if(!showSearch){ %>
+                <li><a href="/order" class="glass-card"><i class="fa-solid fa-box"></i> Order</a></li>
+                <%}%>
+                <li>
+                    <% if(!isLoggedIn){ %>
+                        <a href="/login" class="glass-card"><i class="fa-solid fa-user"></i> Login</a>
+                    <%}else{%>
+                        <a href="/logout" class="glass-card"><i class="fa-solid fa-right-from-bracket" style="transform: rotate(180deg);"></i>Logout</a>
+                    <%}%>
+                </li>
+                
+            </ul>
+            <% if(showSearch){ %>
+                <div class="search-cart">
+                    <form action="" class="product-search">
+                        <input type="text" placeholder="Search...">
+                        <button class="search-btn"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
+                    </form>
+                    <div class="search-dropdown" id="search-categoryDropdown">
+                          <div class="search-dropdown-item"></div>
+                    </div>
+            <% }%>
+            <div class="cart">
+                <a href="/cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Cart</p>
+                </a>
+            </div> 
+            <div class="user">
+                <a href="/profile">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <% if(isLoggedIn) { %>
+                        <p><%- userName %></p>
+                    <% } else { %>
+                        <p>Guest</p>
+                    <% } %>
+                </a>
+            </div>
+        </nav>
+    </header>  
+    

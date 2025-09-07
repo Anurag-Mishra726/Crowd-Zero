@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" href="css/login.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+     <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include("partials/loader") %>
+    <div id="warning-box" class="warning-container" style="display: none;">
+        <div class="warning-message">⚠️ Something went wrong</div>
+        <div class="warning-close" onclick="closeWarning()">✖</div>
+    </div>
+    <div class="container">
+        <div class="login-image-container"><img src="images/logo/4.1.png" alt=""></div>
+        <div class="login-container">
+            <!-- <div class="web-name">
+                <h2>QuickCart</h2> 
+            </div> -->
+            <div class="login-heading">
+                <h1>Login</h1>
+                <p>Do not have an account, <a href="/signup">create a new one</a>.</p>
+            </div>
+            <div class="login-form" id="login-form">
+                <form action="">
+                    <div class="input">
+                        <div class="row-one input-row">
+                            <div class="input-email input-container">
+                                <label for="email" class="font-size">Email</label>
+                                <input type="email" class="input-box" name="email" id="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="row-two input-row">
+                            <div class="input-password input-container">
+                                <label for="password" class="font-size">Password</label>
+                                <input type="password" class="input-box" name="password" id="password" placeholder="*****" required>
+                                <i  class="fa-solid fa-eye-slash toggle-password" id="togglePassword" data-target="password" style="color: #000000;"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+            <div class="forgetpassword">
+                <h3><a href="">Forgot Your Password</a></h3>
+            </div>
+        </div>
+        
+    </div>
+    <script src="js/eye-button.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

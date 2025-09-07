@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+
+  <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="stylesheet" href="css/billing.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/newsletter.css">
+</head>
+<body>
+  <%- include("partials/loader") %>
+  <% if(!isLoggedIn){ %>
+    <div class="login-message">
+      <h2>🔒 Access Restricted</h2>
+      <p>Please <a href="/login">login in</a> to view your cart.</p>
+    </div>
+    <% } else{  %>
+
+  <%- include('partials/navbar') %>
+  <% if(cartItems.length == 0){ %>
+    <div>
+      <div  class="cart-empty">
+        <h3>Your cart is empty <i class="fa-solid fa-cart-plus" style="color: #000000;"></i> Please first add Items in cart.</h3>
+        <a href="/products">Start Shopping</a>
+      </div>
+    </div>
+  <% } else{ %>
+  <div class="container">
+    <!-- Billing Details -->
+    <div class="card">
+      <div class="card-header">Billing Details</div>
+      <form class="form">
+        <div class="form-row">
+          <div class="input-group">
+            <label for="full-name">Full Name*</label>
+            <input id="full-name" type="text" value="<%- user.name %>" readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-group">
+            <label for="email">Email*</label>
+            <input id="email" type="email" value="<%- user.email %>" readonly>
+          </div>
+          <div class="input-group"> 
+            <label for="phone">Phone Number*</label>
+            <input id="phone" type="tel" value="<%- user.phone_number || '' %> "  readonly>
+          </div>
+        </div>
+        <div class="form-row single">
+          <div class="input-group" style="width:100%;">
+            <label for="street">Street Address*</label>
+            <input id="street" type="text" value="<%- user.street_address || '' %>" readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-group" >
+            <label for="city">Town/City*</label>
+            <input id="city" type="text" value="<%- user.city || '' %> " readonly>
+          </div>
+          <div class="input-group">
+            <label for="">State*</label>
+            <input id="state" type="text" value="<%- user.state || '' %>" readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-group">
+            <label for="country">Country*</label>
+            <input id="country" type="text" value="<%- user.country || '' %>" readonly>
+          </div>
+          <div class="input-group">
+            <label for="zip">Postal/Zip Code*</label>
+            <input id="zip" type="text" value="<%- user.zip_code || '' %>" readonly>
+          </div>
+        </div>
+        <div class="payment-dropdown-container">
+          <label for="payment-method" class="payment-label">Choose a Payment Method</label>
+          
+          <div class="payment-select-wrapper">
+              <select id="payment-method" name="payment-method" class="payment-select-element" required>
+                <option value="" disabled selected>Select Payment Method</option>
+                  <option value="online">Online Payment</option>
+                  <option value="cash">Cash On Delivery</option>
+              </select>              
+              <svg class="payment-dropdown-icon" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+          </div>
+      </div>
+        
+      <% if(!user.phone_number || !user.street_address || !user.city || !user.state || !user.zip_code || !user.country) { %>
+        <button type="button" class="complete-profile" onclick="window.location.href ='/profile' ">Complete Profile to Continue</button>
+      <% }else{%>
+        <button type="button" id="submit-payment" class="confirm-btn">Confirm Order</button>
+      <%}%>
+        
+      </form>
+    </div>
+
+    <div id="payment-modal" class="modal-backdrop">
+      <div class="modal-content">
+          <h3>Error!</h3>
+          <p>Please select a payment method to continue.</p>
+          <button id="modal-close" class="modal-close-btn">OK</button>
+      </div>
+    </div>
+    <!-- Success Popup -->
+    <div id="order-success-modal" class="order-modal-backdrop">
+      <div class="order-modal-content success">
+          <h3 class="order-success-title">🎉 Order Placed!</h3>
+          <p>Your order has been successfully placed with <strong>Cash on Delivery</strong>.</p>
+          <button id="order-success-ok" class="order-modal-close-btn">OK</button>
+      </div>
+    </div>
+
+
+    <div class="carts">
+      <div class="cart-header">Cart Details</div>
+      <div class="cart-details">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th class="text-left">Product</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-center">Total</th>
+            </tr>
+          </thead>
+          <tbody> 
+            
+            <tr class="dashed-row"><td colspan="3"></td></tr>
+    
+            <% if (lastAddedItem.length > 0) { %>
+              <!-- <tr>
+                <td><%- lastAddedItem.title %></td>
+                <td class="text-center"><%- lastAddedItem.quantity %>x</td>
+                <td class="text-center">$<%= (
+                  (lastAddedItem.price - (lastAddedItem.price * lastAddedItem.product_discount_persentage / 100))
+                  * lastAddedItem.quantity
+               ).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+               </td>
+              </tr> -->
+              <% lastAddedItem.forEach(items =>{ %>
+                <tr>
+                  <td><%- items.title %></td>
+                  <td class="text-center"><%- items.quantity %>x</td>
+                  <td class="text-center">$<%= parseFloat((items.totalPrice)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+                 </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <% cartItems.forEach(items => { %>
+                <tr>
+                  <td><%- items.title %></td>
+                  <td class="text-center"><%- items.quantity %>x</td>
+                  <td class="text-center">$<%- parseFloat(items.totalPrice).toLocaleString() %></td>
+                </tr>
+              <% }) %>
+            <% } %>
+    
+            <tr class="dashed-row"><td colspan="3"></td></tr>
+    
+            <% if (lastAddedItem.length > 0) { %>
+              <tr class="subtotal-row">
+                <td><strong>Subtotal</strong></td>
+                <td></td>
+                <td class="text-center"><strong>$<%= parseFloat((lastAddedItem[0].totalPrice)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+               </strong></td>
+              </tr>
+              <tr class="shipping-row">
+                <td><strong>Shipping</strong></td>
+                <td></td>
+                <td class="text-center">
+                  <% if ( lastAddedItem[0].totalPrice > 100) { %>
+                    <strong style="color: #0b7b3c;">
+                      <i class="fa-solid fa-circle-check" style="color: #0b7b3c;"></i> Free Shipping
+                    </strong>
+                  <% } else { %>
+                    <strong>$50</strong>
+                  <% } %>
+                  
+                </td>
+              </tr>
+              <tr class="dashed-row"><td colspan="3"></td></tr>
+              <tr class="total-row">
+                <td>Total</td>
+                <td></td>
+                <td class="text-center">
+                  <% if (lastAddedItem[0].totalPrice > 100) { %>
+                    $<%= lasteAddeditemGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+                   <small>(INR - <%- (lasteAddeditemGrandTotal * 80).toLocaleString('en-IN', {style: 'currency', currency: 'INR', minimumFractionDigits: 2}) %>)</small>
+                  <% } else { %>
+                    $<%= (lasteAddeditemGrandTotal + 50).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })%>
+                      <small>(INR - <%- ((lasteAddeditemGrandTotal + 50) * 80).toLocaleString('en-IN', {style: 'currency', currency: 'INR', minimumFractionDigits: 2}) %>)</small>
+                  <% } %> 
+                </td>
+              </tr>
+            <% } else { %>
+              <!-- Subtotal & Total for whole cart -->
+              <tr class="subtotal-row">
+                <td><strong>Subtotal</strong></td>
+                <td></td>
+                <td class="text-center"><strong>$<%- parseFloat(grandTotal).toLocaleString() %></strong></td>
+              </tr>
+              <tr class="shipping-row">
+                <td><strong>Shipping</strong></td>
+                <td></td>
+                <td class="text-center">
+                  <% if (parseFloat(grandTotal) > 100) { %>
+                    <strong style="color: #0b7b3c;">
+                      <i class="fa-solid fa-circle-check" style="color: #0b7b3c;"></i> Free Shipping
+                    </strong>
+                  <% } else { %>
+                    <strong>$50</strong>
+                  <% } %>
+                </td>
+              </tr>
+              <tr class="dashed-row"><td colspan="3"></td></tr>
+              <tr class="total-row">
+                <td>Total</td>
+                <td></td>
+                <td class="text-center total-amount">
+                  <% if (parseFloat(grandTotal) > 100) { %>
+                    $<%- parseFloat(grandTotal).toLocaleString() %> <br> <small class="total-amount-in-inr" data-inr="<%- parseFloat((grandTotal) * 80) %>">(INR- <%- parseFloat(grandTotal * 80).toLocaleString('en-IN', {style: 'currency', currency: 'INR', minimumFractionDigits: 2}) %>)</small>
+                  <% } else { %>
+                    $<%- parseFloat(grandTotal) + 50 %> <small class="total-amount-in-inr" data-inr="<%- parseFloat((grandTotal + 50) * 80).toFixed(2) %>"> <br> (INR- <%- parseFloat((grandTotal + 50) * 80).toLocaleString('en-IN', {style: 'currency', currency: 'INR', minimumFractionDigits: 2}) %>)</small>
+                  <% } %>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%- include('partials/newsletter') %>
+  <%- include('partials/footer') %>
+  <script src="js/navbar.js"></script>
+  <script src="js/billing.js"></script>
+  <script src="js/newsletter.js"></script>
+
+  <%}%>
+  <%}%>
+
+</body>
+</html>

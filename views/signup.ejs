@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" href="css/signup.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+     <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include("partials/loader") %>
+    <div id="warning-box" class="warning-container" style="display: none;">
+        <div class="warning-message">⚠️ Something went wrong</div>
+        <div class="warning-close" onclick="closeWarning()">✖</div>
+    </div>
+      
+    <div class="container">
+        <div class="signup-image-container"><img src="images/logo/5.1.png" alt=""></div>
+        <div class="signup-container">
+        <div class="signup-heading">
+                <h1>Sign Up</h1>
+                <p>Already have an account, <a href="/login">Login</a>.</p>
+            </div>
+            <div class="signup-form">
+                <form id="signup-form">
+                    <div class="input">
+                        <div class="row-one input-row">
+                            <div class="input-name input-container">
+                                <label for="name" class="font-size">Username</label>
+                                <input type="text" class="input-box" name="name" id="name" placeholder="Enter your name" required>
+                            </div>
+                            <div class="input-email input-container">
+                                <label for="email" class="font-size">Email</label>
+                                <input type="email" class="input-box" name="email" id="email" placeholder="Enter your email" required>
+                            </div> 
+                        </div>
+                        <div class="row-two input-row">
+                            <div class="input-password input-container">
+                                <label for="password" class="font-size">Password</label>
+                                <input type="password" class="input-box" name="password" id="password" placeholder="*****" required>
+                                <i  class="fa-solid fa-eye-slash toggle-password" id="togglePassword" data-target="password" style="color: #000000;"></i>
+                            </div>
+                            <div class="input-confirm-password input-container">
+                                <label for="confirmPassword" class="font-size">Confirm Password</label>
+                                <input type="password" class="input-box" name="confirmPassword" id="confirmPassword" placeholder="*****" required>
+                                <i  class="fa-solid fa-eye-slash toggle-password" id="togglePasswordConfirm" data-target="confirmPassword" style="color: #000000;"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="term-conditions">
+                        <label>
+                            <input type="checkbox" id="terms" name="terms" required> I have read and agreed to the <a href="/terms-and-conditions">Terms and Conditions.</a>
+                        </label>
+                    </div>
+                    <div class="button">
+                        <button type="submit">Create Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="/js/eye-button.js"></script>
+    <script src="/js/signup.js"></script>
+</body>
+</html> 

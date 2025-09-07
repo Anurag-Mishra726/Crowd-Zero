@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Orders</title>
+  <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/newsletter.css">
+  <link rel="icon" href="images/logo/favicon2.png">
+  <script src="https://kit.fontawesome.com/b77bca94fb.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+     
+      margin: 0;
+      
+    }
+
+    .login-message {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 30px;
+    border: 2px solid var(--button-bg);
+    border-radius: 12px;
+    background: #fff5f5;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-message h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #d32f2f;
+}
+
+.login-message p {
+    font-size: 16px;
+    color: #555;
+}
+
+.login-message a {
+    color: #fff;
+    background: #f49536;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.login-message a:hover {
+    background: #b71c1c;
+}
+
+    main{
+        padding: 40px;
+      color: #000000;
+      line-height: 1.6;
+      background: #f8fafc;
+    }
+
+    main > h1 {
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.5px;
+    }
+
+    .order-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      margin-bottom: 40px;
+      padding: 28px;
+      transition: transform 0.25s ease;
+    }
+
+    .order-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .order-id {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #0f172a;
+    }
+
+    .order-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 1rem;
+      color: #000000;
+      margin-bottom: 14px;
+    }
+
+    .status {
+      padding: 8px 16px;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .status-paid { background: #dcfce7; color: #166534; }
+    .status-pending { background: #ffedd5; color: #9a3412; }
+    .status-delivered { background: #dbeafe; color: #1e40af; }
+    .status-shipped { background: #ede9fe; color: #6d28d9; }
+    .status-preparing { background: #fef3c7; color: #92400e; }
+
+    .order-progress {
+      margin: 18px 0;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #f9fafb;
+      font-style: italic;
+      font-size: 1rem;
+      color: #000000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #000000;
+      font-size: 1rem;
+    }
+
+    td {
+      color: #000000;
+    }
+
+    td small {
+      color: #000000;
+      font-size: 0.9rem;
+    }
+
+    .highlight-row {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <%- include("partials/loader") %>
+    <% if(!isLoggedIn){ %>
+    <div class="login-message">
+        <h2>🔒 Access Restricted</h2>
+        <p>Please <a href="/login">login in</a> to view your order.</p>
+    </div>
+    <%}else{%>
+
+    <%- include('partials/navbar') %>
+  <main>  
+  <h1>My Orders</h1>
+
+  <% if (orders.length === 0) { %>
+    <p style="text-align:center; font-size:1.1rem;">No orders found.</p>
+  <% } %>
+  <% let orderData = orders.reverse()%>
+  <% orderData.forEach(order => { %>
+    <%  
+            let orderDate = new Date(order.order_date);
+            let today = new Date();
+            let diffDays = Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
+            let progressMessage = "";
+            let orderStatus = "";
+            if (diffDays > 7) {
+              progressMessage = `Order delivered successfully <i class="fa-solid fa-truck fa-xl"></i>`;
+              orderStatus = "paid";
+            } else if (diffDays >= 4) {
+              progressMessage = `Your order is on the way <i class="fa-solid fa-truck fa-xl" style="color: #ffc800;"></i>`;
+            } else {
+              progressMessage = `Your order is being prepared & will be shipped soon <i class="fa-solid fa-clock fa-xl" style="color:  #0b7b3c;"></i>`;
+            }
+    %>
+    
+
+    <div class="order-card">
+      <div class="order-header">
+        <span class="order-id">Order ID: ORD-<%= String(order.order_id).padStart(6, '0') %></span>
+        <% if(orderStatus == "paid"){ %>
+            <span class="status status-paid">Paid</span>
+        <%}else{%>
+            <span class="status status-<%= order.status %>"><%= order.status %></span>
+        <%}%>
+      </div>
+
+      <div class="order-meta">
+        <span style="text-transform: capitalize;"><strong>Payment:</strong> <%= order.payment_method %></span>
+        <span><strong>Total:</strong> $<%- order.total_amount_in_dollor %> <small>(INR - ₹<%- order.total_amount_in_inr %>) </small></span>
+        <span><strong>Order Date:</strong> <%= order.order_date.toDateString() %> </span>
+      </div>
+
+      <div class="order-progress">
+            <%- progressMessage %>
+      </div>
+    
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Qty</th>
+            <th>Sub-Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% order.products.forEach(product => { %>
+            <tr>
+              <td><%= product.name %></td>
+              <td>
+                $<%- (product.price - ((product.price * product.discount) / 100)).toFixed(2) %>
+                <br>
+                <small>
+                  (<%= ((product.price - ((product.price * product.discount) / 100)) * 80).toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2 }) %>)
+                </small>
+              </td>
+              <td><%= product.discount %>%</td>
+              <td><%= product.quantity %></td>
+              <td>
+                $<%- ((product.price - ((product.price * product.discount) / 100)) * product.quantity).toFixed(2) %>
+                <br>
+                <small>
+                  (<%= (((product.price - ((product.price * product.discount) / 100)) * product.quantity) * 80).toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2 }) %>)
+                </small>
+              </td>
+            </tr>
+          <% }); %>
+          <%
+            let subTotal = order.products.reduce((sum, product) => {
+              return sum + ((product.price - ((product.price * product.discount) / 100)) * product.quantity);
+            }, 0);
+          %>
+          <tr class="highlight-row">
+            <td>Shipping Charge</td>
+            <td colspan="4">
+                <% if(subTotal < 100 ){ %>
+                    $50 <small style="font-weight: 300;">(<%= (50 * 80).toLocaleString('en-IN', {style: 'currency', currency: 'INR', minimumFractionDigits: 2})%>).</small> A shipping charge is applied to orders under $100.
+                <%}else{ %>
+                    <p style="color: #0b7b3c;">
+                        <i class="fa-solid fa-circle-check" style="color: #0b7b3c;"></i> Free Shipping
+                    </p>
+                <%}%>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <% }); %>
+  </main>
+  <%- include('partials/newsletter') %>
+  <%- include('partials/footer') %>
+  <script src="js/navbar.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/newsletter.js"></script>
+  <%}%>
+</body>
+</html>
