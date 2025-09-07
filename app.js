@@ -20,7 +20,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port = 3000;
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()); 
@@ -41,7 +41,7 @@ app.use(expressSession({
     store: sessionStore,
     cookie: {
       httpOnly: true,
-      secure: false,/* process.env.NODE_ENV === 'production', */
+      secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24
     }
@@ -128,6 +128,7 @@ app.use("/delet-account", deleteRouter);
 
 
 
-app.listen(port, ()=>{
-    console.log("Running on the port 3000")
+const PORT = process.env.PORT || 3000; 
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
