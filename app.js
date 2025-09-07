@@ -40,7 +40,7 @@ app.use(expressSession({
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24
