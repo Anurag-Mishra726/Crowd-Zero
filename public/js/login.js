@@ -1,6 +1,6 @@
     document.getElementById('login-form').addEventListener('submit', async function(e){
         e.preventDefault();
-
+        document.getElementsByClassName('container')[0].style.filter = 'blur(2px)';
         const email = document.getElementById('email').value;
         const password = document.getElementById("password").value;
 
@@ -24,8 +24,13 @@
         const data = await res.json();
 
         if (data.status === 'success') {
-            alert(data.message);
-            window.location.href = data.redirectTo;
+            //alert(data.message);
+            document.getElementsByClassName('container')[0].style.filter = 'none';
+            loginSuccessfully();
+            setTimeout(() => {
+                window.location.href = data.redirectTo;
+            }, 1000);
+            
         }else{
             showWarning(data.message);
         }
@@ -38,7 +43,13 @@ function showWarning(message){
     errorMessage.style.opacity = '1';
     errorMessage.querySelector('.warning-message').textContent = "⚠️ " + message;
 }
-
+function loginSuccessfully(){
+    let errorMessage = document.getElementById('warning-box');
+    errorMessage.style.display = 'flex';
+    document.getElementsByClassName('container')[0].style.filter = 'blur(2px)';
+    errorMessage.style.opacity = '1';
+    errorMessage.querySelector('.warning-message').textContent = "🛍️ Logged in. Let's find something you'll love."
+}
 function closeWarning(){
     let errorMessage = document.getElementById('warning-box');
     errorMessage.style.display = 'none';

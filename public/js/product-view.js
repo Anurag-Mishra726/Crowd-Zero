@@ -23,7 +23,6 @@ window.addEventListener('DOMContentLoaded', (e) => {
 
 
 function renderProductView(product) {
-    console.log(product);
     const imgSrc = document.querySelector(".main-image-wrapper > img");
     const otherImages = document.querySelector(".thumbnail-images");
     const productTitle = document.querySelectorAll(".product_title");

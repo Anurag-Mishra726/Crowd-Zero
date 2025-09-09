@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     selectElement.addEventListener('click', () => {
         iconElement.classList.toggle('is-rotated');
     });
-
 });
 
 document.addEventListener('DOMContentLoaded', async() => {
@@ -16,11 +15,10 @@ document.addEventListener('DOMContentLoaded', async() => {
     const paymentconfirm = document.getElementById('order-success-modal');
     const modalCloseBtn = document.getElementById('modal-close');
     const paymentconfirmCloseBtn = document.getElementById('order-success-ok');
-    
+
     // Validate selection and show the pop-up
     submitButton.addEventListener('click', async() => {
         const selectedValue = selectElement.value;
-        console.log(selectedValue);
         if (selectedValue === '') {
             modal.style.display = 'flex';
         }else if(document.querySelector('.total-amount-in-inr').dataset.inr >= 100000 && selectedValue === "online"){
@@ -134,17 +132,10 @@ document.addEventListener('DOMContentLoaded', async() => {
         }else if(response.status === "error"){
             modalContent.innerText = response.message;
             modal.style.display = 'flex';
-            // setTimeout(() => {
-            //     window.location.href = `/shop`;
-            // }, 1500);
         }
-
-        console.log(response);
         } catch (error) {
-            console.log(error);
             modalContent.innerText = "Server error. Please try again later.";
             modal.style.display = 'flex';
         }
     }
-
 });

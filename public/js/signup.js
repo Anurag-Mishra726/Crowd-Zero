@@ -29,8 +29,11 @@ document.getElementById('signup-form').addEventListener('submit', async function
     const data = await res.json();
 
     if (data.status === 'success') {
-        alert(data.message);
-        window.location.href = data.redirectTo;
+        document.getElementsByClassName('container')[0].style.filter = 'blur(2px)';
+        signedUpSuccessfully();
+        setTimeout(() => {
+            window.location.href = data.redirectTo;
+        }, 1500);
     }else{
         showWarning(data.message);
     }
@@ -43,7 +46,13 @@ function showWarning(message){
     errorMessage.style.opacity = '1';
     errorMessage.querySelector('.warning-message').textContent = "⚠️ " + message;
 }
-
+function signedUpSuccessfully(){
+    let errorMessage = document.getElementById('warning-box');
+    errorMessage.style.display = 'flex';
+    document.getElementsByClassName('container')[0].style.filter = 'blur(2px)';
+    errorMessage.style.opacity = '1';
+    errorMessage.querySelector('.warning-message').innerHTML = "🛍️ Welcome to <strong>Crowd Zero!</strong> Your style journey begins now."
+}
 function closeWarning(){
     let errorMessage = document.getElementById('warning-box');
     errorMessage.style.display = 'none';

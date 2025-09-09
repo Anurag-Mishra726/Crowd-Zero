@@ -64,7 +64,7 @@ router.get("/", async (req, res) => {
 
                     });
                 }
-
+                
                 return res.render('billing',{
                     showSearch: false,
                     cartItems: newPrice,

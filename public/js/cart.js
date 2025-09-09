@@ -117,6 +117,7 @@ async function updateCartUi(e){
 
     } catch (error) {
         console.error(error);
+        showWarning("Server error. Please try again later.");
     }
 }
 

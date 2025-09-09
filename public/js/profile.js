@@ -32,7 +32,6 @@ cancelBtn.onclick = () => {
 form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
-    console.log("hello");
     inputs.forEach( async i => { initialValues[i.name] = i.value; i.readOnly = true; });
     saveBtn.classList.add('hidden');
     cancelBtn.classList.add('hidden');
@@ -40,10 +39,8 @@ form.addEventListener("submit", async (e) => {
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
 
     try {
-        console.log("fetching...");
        const response = await fetch("/profile/update/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,7 +49,6 @@ form.addEventListener("submit", async (e) => {
       });
 
       const result = await response.json();
-      console.log(response);
       if(!result.success){
         showWarning(result.message)
       }
@@ -67,7 +63,6 @@ form.addEventListener("submit", async (e) => {
     }
   });
 
-
   function showMessage(message) {
     let errorMessage = document.getElementById('warning-box');
     errorMessage.style.display = 'flex';
@@ -79,7 +74,6 @@ form.addEventListener("submit", async (e) => {
         closeWarning();
     }, 2000);
 }
-
 
 function showWarning(message){
     let errorMessage = document.getElementById('warning-box');
